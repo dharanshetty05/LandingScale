@@ -1,26 +1,193 @@
 @import "tailwindcss";
 
+/* -------------------------------------------------------------------------
+ * ScaleWithLakshya Design Tokens
+ * Single dark theme — no light mode. Colors live as raw CSS variables in
+ * :root so they stay easy to tweak in one place; @theme inline exposes them
+ * to Tailwind as utilities (bg-background, text-foreground, etc).
+ * ---------------------------------------------------------------------- */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Backgrounds */
+  --background: #0a0a0f; /* deep charcoal, base page background */
+  --background-navy: #0d0e17; /* dark navy, used for atmospheric/hero zones */
+  --surface: #131319; /* first elevation: cards, inputs */
+  --surface-elevated: #1a1a23; /* second elevation: hovered/active surfaces */
+
+  /* Brand — Purple */
+  --brand-purple: #6e56cf; /* primary brand purple */
+  --brand-purple-bright: #9b7ef7; /* brighter purple, hover/gradient end */
+  --brand-purple-soft: #241f38; /* soft purple surface tint */
+  --brand-purple-muted: rgba(110, 86, 207, 0.14); /* translucent purple wash */
+
+  /* Accent — Orange (supporting accent only) */
+  --brand-orange: #e2793d;
+  --brand-orange-soft: rgba(226, 121, 61, 0.14);
+
+  /* Text */
+  --foreground: #f5f3f7; /* warm off-white, primary text */
+  --muted-foreground: #c8c5d1; /* muted off-white, secondary text */
+  --subtle-foreground: #8b8894; /* subtle gray, tertiary/caption text */
+
+  /* Borders */
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.14);
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-background-navy: var(--background-navy);
+  --color-surface: var(--surface);
+  --color-surface-elevated: var(--surface-elevated);
+
+  --color-brand-purple: var(--brand-purple);
+  --color-brand-purple-bright: var(--brand-purple-bright);
+  --color-brand-purple-soft: var(--brand-purple-soft);
+  --color-brand-purple-muted: var(--brand-purple-muted);
+
+  --color-brand-orange: var(--brand-orange);
+  --color-brand-orange-soft: var(--brand-orange-soft);
+
   --color-foreground: var(--foreground);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-subtle-foreground: var(--subtle-foreground);
+
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* -------------------------------------------------------------------------
+ * Restrained radius + shadow scale.
+ * Overrides Tailwind's defaults so rounded-md / shadow-md etc. are correct
+ * everywhere by default, with no per-component overrides needed.
+ * ---------------------------------------------------------------------- */
+@theme {
+  --radius-sm: 0.375rem; /* 6px — inputs */
+  --radius-md: 0.5rem; /* 8px — buttons */
+  --radius-lg: 0.75rem; /* 12px — cards */
+  --radius-xl: 1rem; /* 16px — demo/image blocks */
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.5);
+
+  --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --animate-accordion-down: accordion-down 0.25s var(--ease-standard);
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+}
+
+@keyframes accordion-down {
+  from {
+    height: 0;
   }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+/* -------------------------------------------------------------------------
+ * Base styles
+ * ---------------------------------------------------------------------- */
+* {
+  border-color: var(--border);
+}
+
+html {
+  color-scheme: dark;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+::selection {
+  background: var(--brand-purple-muted);
+  color: var(--foreground);
+}
+
+/* -------------------------------------------------------------------------
+ * Container system — editorial width, not edge-to-edge.
+ * Mobile 20px / Tablet 32px / Desktop 48px horizontal padding.
+ * ---------------------------------------------------------------------- */
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-300 px-5 sm:px-8 lg:px-12;
+  }
+}
+
+/* -------------------------------------------------------------------------
+ * Purple gradient system
+ * 1. .gradient-brand      — solid brand gradient for CTAs / key moments
+ * 2. .gradient-ambient    — ultra-low-opacity atmospheric glow (hero/section bg)
+ * 3. .gradient-border     — 1px gradient border accent, used sparingly
+ * ---------------------------------------------------------------------- */
+@layer utilities {
+  .gradient-brand {
+    background-image: linear-gradient(
+      135deg,
+      var(--brand-purple) 0%,
+      var(--brand-purple-bright) 100%
+    );
+  }
+
+  .gradient-ambient {
+    background: radial-gradient(
+      60% 50% at 50% 0%,
+      rgba(110, 86, 207, 0.16) 0%,
+      rgba(110, 86, 207, 0) 70%
+    );
+  }
+
+  .gradient-border {
+    position: relative;
+  }
+
+  .gradient-border::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    border-radius: inherit;
+    background: linear-gradient(
+      135deg,
+      var(--brand-purple) 0%,
+      var(--brand-purple-bright) 100%
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+}
+
+/* -------------------------------------------------------------------------
+ * Motion accessibility — hard reduce, on top of Motion's useReducedMotion
+ * checks in JS. Belt and suspenders for any CSS-driven transition/animation.
+ * ---------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

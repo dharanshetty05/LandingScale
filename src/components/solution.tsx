@@ -1,217 +1,109 @@
 "use client";
 
-import { useState } from "react";
-import {
-  ArrowRight,
-  MapPin,
-  ShieldCheck,
-  Cpu,
-  CheckCircle2,
-  type LucideIcon,
-} from "lucide-react";
+import { MapPin, ShieldCheck, Code2  } from "lucide-react";
 
 interface SolutionPillar {
-  id: string;
-  stepNumber: string;
+  number: string;
   category: string;
-  actionTitle: string;
+  title: string;
   description: string;
-  icon: LucideIcon;
-  contextTag: string;
-  highlightSignal: string;
+  context: string;
+  icon: typeof MapPin;
 }
 
 const pillars: SolutionPillar[] = [
   {
-    id: "gbp",
-    stepNumber: "01",
+    number: "01",
     category: "Google Business Profile",
-    actionTitle: "Get found",
-    description:
-      "Be there when local customers search for your service.",
+    title: "Get found",
+    description: "Be visible when local customers search for the service you provide.",
+    context: "Local visibility",
     icon: MapPin,
-    contextTag: "Local Search & Maps",
-    highlightSignal:
-      "First impression in your local service radius",
   },
   {
-    id: "website",
-    stepNumber: "02",
+    number: "02",
     category: "Website",
-    actionTitle: "Build trust",
-    description:
-      "Show people what you do, where you work, and why they should choose you.",
+    title: "Build trust",
+    description: "Turn that attention into confidence with a website that clearly shows what you do and why customers should choose you.",
+    context: "Conversion & proof",
     icon: ShieldCheck,
-    contextTag: "Conversion & Proof",
-    highlightSignal:
-      "Clear proof, recent jobs, direct enquiry path",
   },
   {
-    id: "seo",
-    stepNumber: "03",
+    number: "03",
     category: "Technical SEO",
-    actionTitle: "Strengthen the foundation",
-    description:
-      "Give search engines the structure they need to understand your website.",
-    icon: Cpu,
-    contextTag: "Architecture & Indexing",
-    highlightSignal:
-      "Clean code & schema signals for search engines",
+    title: "Strengthen the foundation",
+    description: "Give search engines the structure they need to understand, crawl, and index your website properly.",
+    context: "Search foundation",
+    icon: Code2 ,
   },
 ];
 
 export function SolutionSection() {
-  const [activePillar, setActivePillar] = useState<string>("gbp");
-
   return (
-    <section
-      id="solution"
-      className="relative mx-auto max-w-7xl overflow-hidden px-4 py-20 sm:px-6 md:py-28 lg:px-8"
-    >
-      {/* Subtle brand ambient lighting anchor */}
+    <section id="solution" className="relative overflow-hidden bg-[#F5F3EF] px-6 py-24 sm:py-28 lg:py-36">
       <div
-        className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[340px] w-[620px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-purple-900/10 blur-[120px]"
         aria-hidden="true"
+        className="pointer-events-none absolute right-[-15%] top-[-20%] h-155 w-155 rounded-full bg-[radial-gradient(circle,rgba(105,76,218,0.09)_0%,rgba(105,76,218,0)_68%)] blur-3xl"
       />
 
-      {/* Section Header */}
-      <div className="mb-14 max-w-3xl md:mb-20">
-        <div className="mb-4 inline-flex items-center gap-2 rounded-md border border-purple-500/20 bg-[#161824] px-3 py-1 text-xs font-medium uppercase tracking-wide text-purple-300">
-          <span className="h-1.5 w-1.5 rounded-full bg-purple-400" />
-          The Solution
+      <div className="relative mx-auto max-w-6xl">
+        {/* Section introduction */}
+        <div className="max-w-3xl">
+          <h2 className="max-w-2xl text-balance font-display text-[2.5rem] font-medium leading-[1.08] tracking-[-0.035em] text-[#19171D] sm:text-[3.25rem] lg:text-[4rem]">
+            Get found. Build trust.
+            <br />
+            <span className="text-[#7048D8]">Get enquiries.</span>
+          </h2>
+
+          <p className="mt-6 max-w-180 text-balance text-[1rem] leading-[1.7] text-[#716C67] sm:text-[1.125rem]">
+            Your online presence works best when the important pieces work together. We focus on the three things that help local customers find you, trust you, and get in touch.
+          </p>
         </div>
 
-        <h2 className="text-3xl font-semibold leading-[1.15] tracking-tight text-[#f5f2eb] sm:text-4xl md:text-5xl">
-          Get found. Build trust.{" "}
-          <br className="hidden sm:inline" />
-          <span className="text-purple-300">Get enquiries.</span>
-        </h2>
-      </div>
-
-      {/* Connected Customer Journey System */}
-      <div className="relative grid grid-cols-1 gap-6 lg:grid-cols-3">
-        {/* Subtle connector rule across items on desktop */}
-        <div
-          className="absolute left-8 right-8 top-1/2 -z-10 hidden h-px -translate-y-12 bg-gradient-to-r from-purple-500/0 via-purple-500/25 to-purple-500/0 lg:block"
-          aria-hidden="true"
-        />
-
-        {pillars.map((pillar, index) => {
-          const Icon = pillar.icon;
-          const isSelected = activePillar === pillar.id;
-
-          return (
-            <div
-              key={pillar.id}
-              id={`solution-card-${pillar.id}`}
-              onMouseEnter={() => setActivePillar(pillar.id)}
-              onClick={() => setActivePillar(pillar.id)}
-              className={`group relative flex cursor-pointer flex-col justify-between rounded-xl border p-7 transition-all duration-300 sm:p-8 ${
-                isSelected
-                  ? "border-purple-500/40 bg-[#141622] shadow-[0_8px_30px_rgba(124,58,237,0.12)]"
-                  : "border-[#222533] bg-[#10121a] hover:border-[#35394d] hover:bg-[#131520]"
-              }`}
-            >
-              {/* Header */}
-              <div>
-                <div className="mb-6 flex items-center justify-between gap-4">
-                  <span className="font-mono text-xs tracking-widest text-[#797e93] transition-colors group-hover:text-purple-300">
-                    STAGE {pillar.stepNumber}
-                  </span>
-
-                  <div
-                    className={`rounded-lg border p-2.5 transition-colors ${
-                      isSelected
-                        ? "border-purple-500/30 bg-purple-950/50 text-purple-200"
-                        : "border-[#272b3c] bg-[#181a26] text-[#9ba1b6] group-hover:text-[#f4f1ea]"
-                    }`}
-                  >
-                    <Icon className="h-5 w-5" />
-                  </div>
-                </div>
-
-                {/* Category Label */}
-                <p className="mb-2 text-sm font-medium text-purple-400">
-                  {pillar.category}
-                </p>
-
-                {/* Action Title */}
-                <h3 className="mb-3 text-2xl font-semibold tracking-tight text-[#f5f2eb]">
-                  {pillar.actionTitle}
-                </h3>
-
-                {/* Core Description */}
-                <p className="mb-6 text-base leading-relaxed text-[#a5abbf]">
-                  {pillar.description}
-                </p>
-              </div>
-
-              {/* Contextual Verification Cue */}
-              <div className="mt-auto flex items-center justify-between border-t border-[#202334] pt-5">
-                <span className="flex items-center gap-1.5 text-xs text-[#797e93]">
-                  <CheckCircle2
-                    className={`h-3.5 w-3.5 ${
-                      isSelected
-                        ? "text-purple-400"
-                        : "text-[#585e74]"
-                    }`}
-                  />
-                  {pillar.contextTag}
-                </span>
-
-                <div
-                  className={`flex items-center gap-1 text-xs font-medium transition-colors ${
-                    isSelected
-                      ? "text-purple-300"
-                      : "text-[#636980] group-hover:text-[#9ea4bc]"
-                  }`}
+        {/* Solution pillars */}
+        <div className="mt-10 lg:mt-12">
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+            {pillars.map((pillar, index) => {
+              const Icon = pillar.icon;
+              return (
+                <article
+                  key={pillar.number}
+                  className="group relative rounded-2xl border border-[#E2DED7] bg-[#FCFBF9] p-7 shadow-[0_8px_30px_rgba(30,25,20,0.035)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#D7D0E8] hover:shadow-[0_12px_35px_rgba(30,25,20,0.055)] sm:p-8"
                 >
-                  Phase {index + 1}
-                  <ArrowRight className="h-3.5 w-3.5" />
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
+                  {/* Number + icon */}
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-[0.6875rem] font-medium tracking-[0.18em] text-[#9A938B]">
+                      {pillar.number}
+                    </span>
 
-      {/* Connected Journey Summary Bar */}
-      <div className="mt-10 flex flex-col items-center justify-between gap-4 rounded-lg border border-[#202334] bg-[#0e1017] p-5 sm:flex-row">
-        <div className="flex items-center gap-3 text-sm text-[#9da3b8]">
-          <span className="h-2 w-2 shrink-0 rounded-full bg-purple-500" />
+                    <Icon
+                      aria-hidden="true"
+                      className="h-5 w-5 text-[#7659CF] transition-transform duration-300 group-hover:translate-x-0.5
+                      strokeWidth={1.7}"
+                    />
+                  </div>
 
-          <span>
-            <strong className="font-medium text-[#f5f2eb]">
-              Three unified components
-            </strong>{" "}
-            working as one continuous system for local service
-            businesses.
-          </span>
+                  {/* Content */}
+                  <div className="mt-8">
+                    <p className="text-[0.8125rem] font-medium text-[#7659CF]">{pillar.category}</p>
+                    <h3 className="mt-2 text-[1.75rem] font-medium leading-tight tracking-tight text-[#19171D]">{pillar.title}</h3>
+                    <p className="mt-4 max-w-sm text-[0.9375rem] leading-[1.7] text-[#77716B]">{pillar.description}</p>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
         </div>
 
-        <div className="flex shrink-0 items-center gap-2 font-mono text-xs text-[#787f95]">
-          <span>Search</span>
-          <span className="text-purple-500">→</span>
-          <span>Trust</span>
-          <span className="text-purple-500">→</span>
-          <span className="text-[#f5f2eb]">Enquiry</span>
+        <div className="mt-6 flex flex-col gap-5 border-t border-[#DCD8D2] pt-7 sm:flex-row sm:items-center sm:justify-between">
+          <p className="max-w-2xl text-sm leading-relaxed text-[#817A73]">
+            <span className="font-medium text-[#252229]">
+              Three connected pieces.
+            </span>{" "}
+            A stronger presence in search, a website that earns trust, and a
+            technical foundation that supports both.
+          </p>
         </div>
-      </div>
-
-      {/* Primary CTA Area */}
-      <div className="mt-12 flex flex-col items-center justify-start gap-4 sm:flex-row">
-        <a
-          id="solution-primary-cta"
-          href="#book"
-          className="inline-flex w-full items-center justify-center gap-2.5 rounded-lg bg-purple-600 px-7 py-4 text-base font-medium tracking-wide text-white shadow-[0_4px_20px_rgba(124,58,237,0.3)] transition-all hover:bg-purple-500 hover:shadow-[0_6px_24px_rgba(124,58,237,0.45)] active:translate-y-0.5 sm:w-auto"
-        >
-          Book Your Strategy Call
-          <ArrowRight className="h-4 w-4" />
-        </a>
-
-        <p className="text-xs text-[#7f859a]">
-          30-minute direct review of your current online setup.
-        </p>
       </div>
     </section>
   );

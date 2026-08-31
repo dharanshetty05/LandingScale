@@ -1,11 +1,11 @@
 "use client";
 
 import { motion, useReducedMotion, type Variants } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 
 /**
- * TODO: point this at the project's existing centralized booking URL/config
- * (e.g. an env var or a shared `siteConfig.bookingUrl`) instead of this
- * placeholder. No such source existed to inspect in this environment.
+ * TODO: Point this at the project's existing centralized booking URL/config
+ * (e.g. an env var or shared siteConfig.bookingUrl).
  */
 const BOOKING_URL = "https://cal.com/scalewithlakshya/strategy-call";
 
@@ -16,72 +16,223 @@ export default function Hero() {
     hidden: {},
     show: {
       transition: {
-        staggerChildren: shouldReduceMotion ? 0 : 0.12,
+        staggerChildren: shouldReduceMotion ? 0 : 0.08,
         delayChildren: shouldReduceMotion ? 0 : 0.05,
       },
     },
   };
 
   const item: Variants = {
-    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 14 },
+    hidden: {
+      opacity: 0,
+      y: shouldReduceMotion ? 0 : 10,
+    },
     show: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+      transition: {
+        duration: 0.5,
+        ease: [0.16, 1, 0.3, 1],
+      },
     },
   };
 
   return (
     <section
-      className="relative isolate flex min-h-[100svh] items-center justify-center overflow-hidden bg-[#0A0A0C] px-6 py-20 sm:py-28 md:py-32"
+      className="relative isolate flex min-h-[92svh] items-center justify-center overflow-hidden bg-[#FAF9F7] px-6 py-24 sm:py-28 lg:min-h-[94svh] lg:py-32"
       aria-label="Introduction"
     >
-      {/* Atmosphere — layered gradients standing in for the reference photo's
-          off-axis studio lighting, plus a whisper of grain and a vignette.
-          No literal room, no centered halo. */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_120%_80%_at_50%_-10%,#161329_0%,#0A0A0C_55%)]" />
-        <div className="absolute -right-[12%] -top-[22%] h-[62%] w-[68%] rounded-full bg-[radial-gradient(circle,rgba(90,63,209,0.34)_0%,rgba(90,63,209,0)_70%)] blur-3xl" />
-        <div className="absolute -left-[18%] bottom-[-18%] h-[48%] w-[58%] rounded-full bg-[radial-gradient(circle,rgba(201,124,61,0.13)_0%,rgba(201,124,61,0)_70%)] blur-3xl" />
+      {/* Subtle atmospheric background */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
+      >
+        {/* Soft purple light from the upper-right */}
         <div
-          className="absolute inset-0 opacity-[0.035] mix-blend-overlay"
-          style={{
-            backgroundImage:
-              "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>\")",
-          }}
+          className="
+            absolute
+            -right-[20%]
+            -top-[25%]
+            h-[70%]
+            w-[70%]
+            rounded-full
+            bg-[radial-gradient(circle,rgba(105,76,218,0.12)_0%,rgba(105,76,218,0.05)_32%,rgba(105,76,218,0)_70%)]
+            blur-3xl
+          "
         />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_45%,transparent_40%,rgba(0,0,0,0.55)_100%)]" />
+
+        {/* Very subtle secondary violet atmosphere */}
+        <div
+          className="
+            absolute
+            -left-[25%]
+            bottom-[5%]
+            h-[45%]
+            w-[50%]
+            rounded-full
+            bg-[radial-gradient(circle,rgba(139,112,235,0.055)_0%,rgba(139,112,235,0)_70%)]
+            blur-3xl
+          "
+        />
+
+        {/* Gentle center light to keep the composition open */}
+        <div
+          className="
+            absolute
+            inset-0
+            bg-[radial-gradient(ellipse_75%_65%_at_50%_42%,rgba(255,255,255,0.75)_0%,rgba(255,255,255,0)_65%)]
+          "
+        />
       </div>
 
       <motion.div
         variants={container}
         initial="hidden"
         animate="show"
-        className="relative z-10 mx-auto flex max-w-[760px] flex-col items-center text-center"
+        className="relative z-10 mx-auto flex max-w-[820px] flex-col items-center text-center"
       >
+        {/* Positioning eyebrow */}
+        <motion.div
+          variants={item}
+          className="
+            mb-7
+            inline-flex
+            items-center
+            gap-2
+            rounded-full
+            border
+            border-[#E5E0F3]
+            bg-white/70
+            px-3.5
+            py-1.5
+            text-[0.6875rem]
+            font-medium
+            uppercase
+            tracking-[0.16em]
+            text-[#6852B8]
+            shadow-[0_1px_2px_rgba(20,16,35,0.03)]
+            backdrop-blur-sm
+            sm:mb-8
+          "
+        >
+          <span
+            aria-hidden="true"
+            className="h-1.5 w-1.5 rounded-full bg-[#694CDC]"
+          />
+          Local growth · Web · SEO
+        </motion.div>
+
+        {/* Main headline */}
         <motion.h1
           variants={item}
-          className="text-balance font-display text-[2rem] font-medium leading-[1.15] tracking-[-0.015em] text-[#F3EDE4] sm:text-[2.75rem] sm:leading-[1.12] md:text-[3.25rem] lg:text-[3.75rem] lg:leading-[1.1]"
+          className="
+            max-w-[820px]
+            text-balance
+            font-display
+            text-[2.75rem]
+            font-medium
+            leading-[1.08]
+            tracking-[-0.035em]
+            text-[#18161D]
+            sm:text-[3.5rem]
+            md:text-[4.25rem]
+            lg:text-[4.75rem]
+            lg:leading-[1.04]
+          "
         >
           Your business should be easier to find online.
         </motion.h1>
 
+        {/* Supporting statement */}
         <motion.p
           variants={item}
-          className="mt-6 max-w-[480px] text-balance text-[1.0625rem] leading-relaxed text-[#9C9488] sm:mt-7 sm:text-[1.125rem]"
+          className="
+            mt-7
+            max-w-[570px]
+            text-balance
+            text-[1rem]
+            leading-[1.7]
+            text-[#6F6A65]
+            sm:mt-8
+            sm:text-[1.125rem]
+            sm:leading-[1.65]
+          "
         >
           A stronger Google presence, a better website, and the technical
           foundation to bring them together.
         </motion.p>
 
+        {/* Primary CTA */}
         <motion.a
           variants={item}
           href={BOOKING_URL}
-          className="mt-10 inline-flex items-center justify-center rounded-[10px] bg-[#5A3FD1] px-8 py-4 text-[0.9375rem] font-medium text-[#F3EDE4] shadow-[0_1px_0_rgba(255,255,255,0.12)_inset,0_8px_24px_-8px_rgba(90,63,209,0.55)] transition-all duration-300 ease-out hover:-translate-y-0.5 hover:bg-[#6B4FE0] hover:shadow-[0_1px_0_rgba(255,255,255,0.16)_inset,0_12px_32px_-8px_rgba(90,63,209,0.7)] focus-visible:outline focus-visible:outline-offset-4 focus-visible:outline-[#8F72F0] sm:mt-12"
+          className="
+            group
+            mt-9
+            inline-flex
+            items-center
+            justify-center
+            gap-2.5
+            rounded-[9px]
+            bg-[#6245D6]
+            px-6
+            py-3.5
+            text-[0.9375rem]
+            font-medium
+            text-white
+            shadow-[0_8px_24px_-10px_rgba(98,69,214,0.55)]
+            transition-all
+            duration-300
+            ease-out
+            hover:-translate-y-0.5
+            hover:bg-[#573AC9]
+            hover:shadow-[0_12px_30px_-10px_rgba(98,69,214,0.65)]
+            focus-visible:outline
+            focus-visible:outline-2
+            focus-visible:outline-offset-4
+            focus-visible:outline-[#8068E3]
+            sm:mt-10
+          "
         >
-          Book Your Strategy Call
+          Book a Strategy Call
+          <ArrowRight
+            aria-hidden="true"
+            className="
+              h-4
+              w-4
+              transition-transform
+              duration-300
+              group-hover:translate-x-0.5
+            "
+          />
         </motion.a>
+
+        {/* Low-pressure reassurance */}
+        <motion.p
+          variants={item}
+          className="mt-3 text-[0.75rem] text-[#96908A]"
+        >
+          A focused conversation about where your online presence can improve.
+        </motion.p>
       </motion.div>
+
+      {/* Subtle transition into the next section */}
+      <div
+        aria-hidden="true"
+        className="
+          pointer-events-none
+          absolute
+          bottom-0
+          left-1/2
+          h-px
+          w-[min(760px,70%)]
+          -translate-x-1/2
+          bg-gradient-to-r
+          from-transparent
+          via-[#E5E0F0]
+          to-transparent
+        "
+      />
     </section>
   );
 }

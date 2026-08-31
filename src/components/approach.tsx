@@ -1,47 +1,39 @@
-import {
-  Search,
-  ShieldCheck,
-  PhoneCall,
-  CornerDownRight,
-  type LucideIcon,
-} from "lucide-react";
+"use client";
 
-interface PrincipleItem {
-  id: string;
-  stepNumber: string;
+import { ArrowDown, ArrowUpRight } from "lucide-react";
+
+interface ApproachStep {
+  number: string;
   title: string;
-  copy: string;
-  icon: LucideIcon;
-  practicalApplication: string;
+  headline: string;
+  description: string;
+  outcome: string;
 }
 
-const principles: PrincipleItem[] = [
+const steps: ApproachStep[] = [
   {
-    id: "find",
-    stepNumber: "01",
+    number: "01",
     title: "Find",
-    copy: "Show up where people are searching.",
-    icon: Search,
-    practicalApplication:
-      "Google search rankings & map visibility when local emergencies or planned jobs happen.",
+    headline: "Show up when they're looking.",
+    description:
+      "Your business should be visible when local customers are already searching for the service you provide.",
+    outcome: "Local visibility",
   },
   {
-    id: "trust",
-    stepNumber: "02",
+    number: "02",
     title: "Trust",
-    copy: "Make it obvious why they should choose you.",
-    icon: ShieldCheck,
-    practicalApplication:
-      "Immediate verification of your licenses, past work photos, and local reputation.",
+    headline: "Give them a reason to choose you.",
+    description:
+      "Once they find you, make it easy to understand what you do, see proof of your work, and feel confident getting in touch.",
+    outcome: "Credibility & proof",
   },
   {
-    id: "enquire",
-    stepNumber: "03",
+    number: "03",
     title: "Enquire",
-    copy: "Make contacting you effortless.",
-    icon: PhoneCall,
-    practicalApplication:
-      "Zero friction click-to-call and clean estimate requests that land directly in your inbox.",
+    headline: "Make the next step obvious.",
+    description:
+      "When someone is ready, remove the friction between interest and action with clear, direct ways to contact you.",
+    outcome: "More opportunities to convert",
   },
 ];
 
@@ -49,86 +41,293 @@ export function ApproachSection() {
   return (
     <section
       id="approach"
-      className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 md:py-28 lg:px-8"
+      className="
+        relative
+        overflow-hidden
+        bg-[#F5F3EF]
+        px-6
+        py-24
+        sm:py-28
+        lg:py-36
+      "
     >
-      {/* Background ambient lighting */}
-      <div
-        className="pointer-events-none absolute right-1/4 top-1/2 -z-10 h-[300px] w-[500px] -translate-y-1/2 rounded-full bg-purple-950/15 blur-[130px]"
-        aria-hidden="true"
-      />
+      <div className="relative mx-auto max-w-6xl">
+        {/* Section introduction */}
+        <div className="max-w-3xl">
 
-      {/* Section Header */}
-      <div className="mb-14 max-w-3xl md:mb-20">
-        <div className="mb-4 inline-flex items-center gap-2 rounded-md border border-purple-500/20 bg-[#161824] px-3 py-1 text-xs font-medium uppercase tracking-wide text-purple-300">
-          <span className="h-1.5 w-1.5 rounded-full bg-purple-400" />
-          Approach
+          <h2
+            className="
+              max-w-3xl
+              text-balance
+              font-display
+              text-[2.5rem]
+              font-medium
+              leading-[1.06]
+              tracking-[-0.04em]
+              text-[#19171D]
+              sm:text-[3.5rem]
+              lg:text-[4.25rem]
+            "
+          >
+            Everything should lead
+            <br />
+            <span className="text-[#7048D8]">somewhere.</span>
+          </h2>
+
+          <p
+            className="
+              mt-6
+              max-w-2xl
+              text-balance
+              text-[1rem]
+              leading-[1.7]
+              text-[#716C67]
+              sm:text-[1.125rem]
+            "
+          >
+            Getting found is only useful if it leads somewhere. We build the
+            path from the first search to the moment a potential customer gets
+            in touch.
+          </p>
         </div>
 
-        <h2 className="text-3xl font-semibold leading-[1.15] tracking-tight text-[#f5f2eb] sm:text-4xl md:text-5xl">
-          Everything should lead{" "}
-          <span className="text-purple-300">somewhere.</span>
-        </h2>
-      </div>
+        {/* Continuous journey */}
+        <div className="relative mt-20 sm:mt-24 lg:mt-28">
+          {/* Connecting line */}
+          <div
+            aria-hidden="true"
+            className="
+              pointer-events-none
+              absolute
+              left-[13px]
+              top-4
+              bottom-4
+              w-px
+              bg-[#D8D2C9]
+              md:left-1/2
+              md:top-[32px]
+              md:bottom-[32px]
+              md:-translate-x-1/2
+            "
+          />
 
-      {/* Editorial Continuous Flow Layout */}
-      <div className="relative grid grid-cols-1 gap-6 md:grid-cols-3 lg:gap-8">
-        {principles.map((item) => {
-          const Icon = item.icon;
+          <div className="relative space-y-16 sm:space-y-20 lg:space-y-24">
+            {steps.map((step, index) => {
+              const isEven = index % 2 === 1;
 
-          return (
-            <div
-              key={item.id}
-              id={`approach-card-${item.id}`}
-              className="group relative flex flex-col justify-between rounded-xl border border-[#222533] bg-[#10121a] p-8 transition-all duration-300 hover:border-purple-500/30 hover:bg-[#131520]"
-            >
-              {/* Top Row: Index Number and Icon */}
-              <div>
-                <div className="mb-8 flex items-center justify-between gap-4">
-                  <span className="font-mono text-xs tracking-widest text-[#797e93] transition-colors group-hover:text-purple-300">
-                    PRINCIPLE // {item.stepNumber}
-                  </span>
+              return (
+                <div
+                  key={step.number}
+                  className="
+                    relative
+                    grid
+                    grid-cols-[28px_1fr]
+                    gap-6
+                    md:grid-cols-[1fr_64px_1fr]
+                    md:gap-0
+                  "
+                >
+                  {/* Left content */}
+                  <div
+                    className={`
+                      hidden
+                      md:block
+                      ${
+                        isEven
+                          ? "md:col-start-3 md:pl-10"
+                          : "md:col-start-1 md:pr-10 md:text-right"
+                      }
+                    `}
+                  >
+                    <div
+                      className={
+                        isEven
+                          ? "flex flex-col items-start"
+                          : "flex flex-col items-end"
+                      }
+                    >
+                      <p
+                        className="
+                          text-[0.6875rem]
+                          font-medium
+                          uppercase
+                          tracking-[0.14em]
+                          text-[#8A837C]
+                        "
+                      >
+                        {step.outcome}
+                      </p>
 
-                  <div className="rounded-lg border border-[#272b3c] bg-[#171926] p-3 text-[#a5abbf] transition-colors group-hover:border-purple-500/30 group-hover:text-purple-300">
-                    <Icon className="h-5 w-5" />
+                      <p
+                        className="
+                          mt-3
+                          max-w-sm
+                          text-sm
+                          leading-[1.7]
+                          text-[#716C67]
+                        "
+                      >
+                        {step.description}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Mobile / desktop number */}
+                  <div
+                    className="
+                      relative
+                      z-10
+                      col-start-1
+                      flex
+                      h-7
+                      w-7
+                      items-center
+                      justify-center
+                      rounded-full
+                      border
+                      border-[#D8D2C9]
+                      bg-[#F5F3EF]
+                      md:col-start-2
+                      md:row-start-1
+                      md:mx-auto
+                      md:h-16
+                      md:w-16
+                    "
+                  >
+                    <span
+                      className="
+                        font-mono
+                        text-[0.625rem]
+                        font-medium
+                        tracking-[0.12em]
+                        text-[#7659CF]
+                        md:text-xs
+                      "
+                    >
+                      {step.number}
+                    </span>
+                  </div>
+
+                  {/* Main content */}
+                  <div
+                    className={`
+                      col-start-2
+                      md:row-start-1
+                      ${
+                        isEven
+                          ? "md:col-start-1 md:row-start-1 md:pr-10 md:text-right"
+                          : "md:col-start-3 md:pl-10"
+                      }
+                    `}
+                  >
+                    <div
+                      className={`
+                        ${
+                          isEven
+                            ? "md:flex md:flex-col md:items-end"
+                            : ""
+                        }
+                      `}
+                    >
+                      <p
+                        className="
+                          text-[0.6875rem]
+                          font-medium
+                          uppercase
+                          tracking-[0.14em]
+                          text-[#8A837C]
+                          md:hidden
+                        "
+                      >
+                        {step.outcome}
+                      </p>
+
+                      <h3
+                        className="
+                          mt-3
+                          font-display
+                          text-[2rem]
+                          font-medium
+                          leading-none
+                          tracking-[-0.03em]
+                          text-[#19171D]
+                          sm:text-[2.5rem]
+                          md:mt-0
+                        "
+                      >
+                        {step.title}
+                      </h3>
+
+                      <p
+                        className="
+                          mt-4
+                          max-w-md
+                          text-[1.05rem]
+                          font-medium
+                          leading-[1.5]
+                          text-[#302C32]
+                          sm:text-[1.125rem]
+                        "
+                      >
+                        {step.headline}
+                      </p>
+
+                      <p
+                        className="
+                          mt-4
+                          max-w-md
+                          text-sm
+                          leading-[1.7]
+                          text-[#716C67]
+                          md:hidden
+                        "
+                      >
+                        {step.description}
+                      </p>
+                    </div>
                   </div>
                 </div>
-
-                {/* Core Title */}
-                <h3 className="mb-3 text-3xl font-semibold tracking-tight text-[#f5f2eb]">
-                  {item.title}
-                </h3>
-
-                {/* Core Copy */}
-                <p className="mb-6 text-lg font-normal leading-relaxed text-[#d3d8e8]">
-                  {item.copy}
-                </p>
-              </div>
-
-              {/* Bottom Clarifying Annotation */}
-              <div className="mt-auto border-t border-[#1e212f] pt-6">
-                <div className="flex items-start gap-2 text-xs leading-relaxed text-[#7d8398]">
-                  <CornerDownRight className="mt-0.5 h-3.5 w-3.5 shrink-0 text-purple-400" />
-
-                  <span>{item.practicalApplication}</span>
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-
-      {/* Bottom Principle Note */}
-      <div className="mt-10 flex flex-col items-center justify-between gap-4 rounded-lg border border-[#202334] bg-[#0e1017] p-5 text-xs text-[#8f96ac] sm:flex-row">
-        <div className="flex items-center gap-2.5">
-          <span className="h-2 w-2 shrink-0 rounded-full bg-purple-500" />
-
-          <span>
-            A clear path beats complex marketing gimmicks every time.
-          </span>
+              );
+            })}
+          </div>
         </div>
 
-        <div className="font-mono text-[#787f95]">
-          Find → Trust → Enquire
+        {/* Closing statement */}
+        <div
+          className="
+            mt-20
+            border-t
+            border-[#DCD8D2]
+            pt-7
+            sm:mt-24
+            lg:mt-28
+          "
+        >
+          <div
+            className="
+              flex
+              flex-col
+              gap-5
+              sm:flex-row
+              sm:items-center
+              sm:justify-between
+            "
+          >
+            <p
+              className="
+                max-w-2xl
+                text-sm
+                leading-[1.7]
+                text-[#817A73]
+                sm:text-[0.9375rem]
+              "
+            >
+              <span className="font-medium text-[#252229]">
+                The goal isn't more marketing activity.
+              </span>{" "}
+              It's a clearer path from being discovered to being contacted.
+            </p>
+          </div>
         </div>
       </div>
     </section>

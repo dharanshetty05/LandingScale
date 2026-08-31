@@ -1,53 +1,121 @@
-import {
-  ArrowRight,
-  Calendar,
-} from "lucide-react";
+import { ArrowRight, Calendar } from "lucide-react";
 
 export function FinalCTASection() {
   return (
     <section
       id="book"
-      className="relative mx-auto max-w-5xl px-4 py-24 sm:px-6 md:py-32 lg:px-8"
+      className="
+        relative
+        overflow-hidden
+        bg-[#F5F3EF]
+        px-6
+        py-28
+        sm:py-32
+        lg:py-40
+      "
     >
-      {/* Centered purple glow anchor */}
+      {/* Subtle purple atmosphere */}
       <div
-        className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[320px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-purple-900/15 blur-[140px]"
+        className="
+          pointer-events-none
+          absolute
+          left-1/2
+          top-1/2
+          -z-0
+          h-[420px]
+          w-[720px]
+          -translate-x-1/2
+          -translate-y-1/2
+          rounded-full
+          bg-purple-300/10
+          blur-[140px]
+        "
         aria-hidden="true"
       />
 
-      <div className="relative overflow-hidden rounded-2xl border border-purple-500/30 bg-gradient-to-b from-[#141624] to-[#0f111a] p-8 text-center shadow-[0_16px_50px_rgba(0,0,0,0.5)] sm:p-12 md:p-16">
-        {/* Subtle decorative top border accent */}
-        <div className="absolute left-1/4 right-1/4 top-0 h-[2px] bg-gradient-to-r from-transparent via-purple-400 to-transparent" />
-
-        <div className="mx-auto max-w-2xl space-y-8">
-          {/* Next Step Badge */}
-          <div className="inline-flex items-center gap-2 rounded-md border border-purple-500/30 bg-[#1d1f30] px-3 py-1 text-xs font-medium uppercase tracking-wide text-purple-300">
-            <Calendar className="h-3.5 w-3.5" />
-            Next Step
-          </div>
-
-          {/* Heading */}
-          <h2 className="text-3xl font-semibold leading-[1.15] tracking-tight text-[#f5f2eb] sm:text-4xl md:text-5xl">
-            Let&apos;s improve your{" "}
-            <br className="hidden sm:inline" />
-            <span className="text-purple-300">
-              online presence.
-            </span>
+      <div className="relative mx-auto max-w-6xl">
+        {/* Main CTA */}
+        <div className="mx-auto max-w-5xl text-center">
+          <h2
+            className="
+              text-balance
+              font-display
+              text-[3.25rem]
+              font-medium
+              leading-[0.98]
+              tracking-[-0.045em]
+              text-[#19171D]              
+            sm:text-[3.5rem]
+            md:text-[4.25rem]
+            lg:text-[4.75rem]
+            "
+          >
+            Stop losing customers
+            <br />
+            <span className="text-[#7048D8]">before they contact you.</span>
           </h2>
 
+          <p
+            className="
+              mx-auto
+              mt-8
+              max-w-2xl
+              text-balance
+              text-[1rem]
+              leading-[1.7]
+              text-[#716C67]
+              sm:mt-9
+              sm:text-[1.125rem]
+            "
+          >
+            Let&apos;s look at how your business is showing up online, what
+            might be getting in the way, and what would make the path to an
+            enquiry clearer.
+          </p>
+
           {/* CTA */}
-          <div className="flex flex-col items-center justify-center gap-4 pt-2">
+          <div className="mt-10 flex flex-col items-center sm:mt-12">
             <a
               id="final-primary-cta-button"
               href="#book-calendar"
-              className="inline-flex w-full items-center justify-center gap-3 rounded-lg bg-purple-600 px-9 py-4 text-base font-medium tracking-wide text-white shadow-[0_4px_24px_rgba(124,58,237,0.4)] transition-all hover:bg-purple-500 hover:shadow-[0_8px_30px_rgba(124,58,237,0.55)] active:translate-y-0.5 sm:w-auto sm:text-lg"
+              className="
+                group
+                inline-flex
+                items-center
+                justify-center
+                gap-3
+                rounded-full
+                bg-[#7048D8]
+                px-8
+                py-4
+                text-base
+                font-medium
+                text-white
+                shadow-[0_10px_30px_rgba(112,72,216,0.20)]
+                transition-all
+                duration-300
+                hover:-translate-y-0.5
+                hover:bg-[#6239C9]
+                hover:shadow-[0_14px_36px_rgba(112,72,216,0.28)]
+                sm:px-10
+                sm:py-[1.125rem]
+                sm:text-[1.0625rem]
+              "
             >
               Book Your Strategy Call
 
-              <ArrowRight className="h-5 w-5" />
+              <ArrowRight
+                className="
+                  h-5
+                  w-5
+                  transition-transform
+                  duration-300
+                  group-hover:translate-x-1
+                "
+              />
             </a>
 
-            <p className="text-sm font-normal text-[#9aa0b6]">
+            <p className="mt-5 text-sm text-[#817A73]">
               Simple conversation. Clear next steps.
             </p>
           </div>

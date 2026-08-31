@@ -12,133 +12,267 @@ interface FAQItem {
 const faqs: FAQItem[] = [
   {
     id: "faq-1",
-    question: "I already have a website.",
-    answer: "That's fine. We start with what you already have.",
+    question: "I already have a website. Do I need a new one?",
+    answer:
+      "Not necessarily. We start by looking at what you already have. If the site is doing its job, we'll work around it. If it's making it harder for people to trust you or take the next step, we'll show you what should change and why.",
   },
   {
     id: "faq-2",
-    question: "I already have a Google Business Profile.",
+    question: "I already have a Google Business Profile. What changes?",
     answer:
-      "That's fine too. The question is whether it's working as well as it could.",
+      "Having a profile is only the starting point. We look at how your Google presence, website, service information, reviews, and local relevance work together. The goal is to make it easier for the right local customers to find you and feel confident contacting you.",
   },
   {
     id: "faq-3",
     question: "Is this just SEO?",
     answer:
-      "No. Google presence, website, and technical SEO work together.",
+      "No. SEO helps people find you, but getting found is only one part of the journey. We also focus on what happens after someone lands on your website: whether they understand what you do, trust the business, and can quickly take the next step.",
   },
   {
     id: "faq-4",
     question: "Can you guarantee leads?",
-    answer: "No. Nobody can honestly guarantee that.",
+    answer:
+      "No. Nobody can honestly guarantee a specific number of leads. What we can do is improve the parts of the customer journey you can control: visibility, clarity, trust, and the path from interest to enquiry.",
   },
   {
     id: "faq-5",
-    question: "What happens on the call?",
+    question: "What happens after I get in touch?",
     answer:
-      "We'll look at your current online presence and discuss where the biggest opportunities are.",
+      "We'll first look at your current online presence and identify the biggest opportunities. You'll get a straightforward view of what's working, what's getting in the way, and what we'd recommend doing next. There is no pressure to commit on the call.",
   },
 ];
 
 export function FAQSection() {
-  // Multiple questions can be open at the same time.
-  // FAQ 1 and FAQ 4 are open by default for immediate scanning.
-  const [openItems, setOpenItems] = useState<Record<string, boolean>>({
-    "faq-1": true,
-    "faq-4": true,
-  });
+  const [openItem, setOpenItem] = useState<string | null>("faq-1");
 
   const toggleItem = (id: string) => {
-    setOpenItems((prev) => ({
-      ...prev,
-      [id]: !prev[id],
-    }));
+    setOpenItem((current) => (current === id ? null : id));
   };
 
   return (
     <section
       id="faq"
-      className="relative mx-auto max-w-5xl px-4 py-20 sm:px-6 md:py-28 lg:px-8"
+      className="
+        bg-[#F5F3EF]
+        px-6
+        py-24
+        sm:py-28
+        lg:py-36
+      "
     >
-      {/* Subtle brand ambient lighting */}
-      <div
-        className="pointer-events-none absolute left-1/4 top-1/2 -z-10 h-[300px] w-[500px] -translate-y-1/2 rounded-full bg-purple-950/10 blur-[130px]"
-        aria-hidden="true"
-      />
-
-      {/* Section Header */}
-      <div className="mb-12 max-w-3xl md:mb-16">
-        <div className="mb-4 inline-flex items-center gap-2 rounded-md border border-purple-500/20 bg-[#161824] px-3 py-1 text-xs font-medium uppercase tracking-wide text-purple-300">
-          <span className="h-1.5 w-1.5 rounded-full bg-purple-400" />
-          FAQ
-        </div>
-
-        <h2 className="text-3xl font-semibold leading-[1.15] tracking-tight text-[#f5f2eb] sm:text-4xl md:text-5xl">
-          Have questions?
-        </h2>
-      </div>
-
-      {/* Accordion List */}
-      <div className="space-y-4">
-        {faqs.map((faq, index) => {
-          const isOpen = !!openItems[faq.id];
-
-          return (
+      <div className="mx-auto max-w-6xl">
+        {/* Section header */}
+        <div
+          className="
+            grid
+            grid-cols-1
+            gap-8
+            lg:grid-cols-[0.85fr_1.15fr]
+            lg:gap-24
+          "
+        >
+          <div>
             <div
-              key={faq.id}
-              id={`faq-item-${faq.id}`}
-              className={`overflow-hidden rounded-xl border transition-all duration-200 ${
-                isOpen
-                  ? "border-purple-500/30 bg-[#12141f] shadow-[0_4px_20px_rgba(0,0,0,0.25)]"
-                  : "border-[#222533] bg-[#10121a] hover:border-[#35394d] hover:bg-[#131520]"
-              }`}
+              className="
+                mb-5
+                flex
+                items-center
+                gap-2
+                text-[0.6875rem]
+                font-medium
+                uppercase
+                tracking-[0.16em]
+                text-[#7048D8]
+              "
             >
-              <button
-                type="button"
-                onClick={() => toggleItem(faq.id)}
-                aria-expanded={isOpen}
-                aria-controls={`${faq.id}-answer`}
-                className="flex w-full cursor-pointer select-none items-center justify-between gap-4 px-6 py-5 text-left sm:px-8"
-              >
-                <div className="flex items-center gap-4">
-                  <span className="font-mono text-xs text-[#6c7287]">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
+              <span className="h-1.5 w-1.5 rounded-full bg-[#7048D8]" />
+              FAQ
+            </div>
 
-                  <span className="text-lg font-medium tracking-tight text-[#f5f2eb] sm:text-xl">
-                    {faq.question}
-                  </span>
-                </div>
+            <h2
+              className="
+                max-w-md
+                font-display
+                text-[2.5rem]
+                font-medium
+                leading-[1.06]
+                tracking-[-0.035em]
+                text-[#19171D]
+                sm:text-[3.25rem]
+                lg:text-[3.75rem]
+              "
+            >
+              The questions
+              <br />
+              worth answering.
+            </h2>
 
+            <p
+              className="
+                mt-6
+                max-w-sm
+                text-[1rem]
+                leading-[1.7]
+                text-[#716C67]
+                sm:text-[1.0625rem]
+              "
+            >
+              Straight answers to the things most business owners want to
+              understand before taking the next step.
+            </p>
+          </div>
+
+          {/* FAQ list */}
+          <div className="border-t border-[#DCD8D2]">
+            {faqs.map((faq, index) => {
+              const isOpen = openItem === faq.id;
+
+              return (
                 <div
-                  className={`shrink-0 rounded-md border p-2 transition-colors ${
-                    isOpen
-                      ? "border-purple-500/30 bg-purple-950/60 text-purple-300"
-                      : "border-[#292e40] bg-[#181a26] text-[#8e94a8]"
-                  }`}
-                  aria-hidden="true"
+                  key={faq.id}
+                  className="border-b border-[#DCD8D2]"
                 >
-                  {isOpen ? (
-                    <Minus className="h-4 w-4" />
-                  ) : (
-                    <Plus className="h-4 w-4" />
+                  <button
+                    type="button"
+                    onClick={() => toggleItem(faq.id)}
+                    aria-expanded={isOpen}
+                    aria-controls={`${faq.id}-answer`}
+                    className="
+                      group
+                      flex
+                      w-full
+                      items-start
+                      justify-between
+                      gap-8
+                      py-6
+                      text-left
+                      sm:py-7
+                    "
+                  >
+                    <div className="flex min-w-0 items-start gap-5">
+                      <span
+                        className={`
+                          mt-1
+                          shrink-0
+                          font-mono
+                          text-[0.6875rem]
+                          tracking-[0.12em]
+                          transition-colors
+                          duration-200
+                          ${
+                            isOpen
+                              ? "text-[#7048D8]"
+                              : "text-[#A29B94] group-hover:text-[#7048D8]"
+                          }
+                        `}
+                      >
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
+
+                      <span
+                        className={`
+                          max-w-xl
+                          text-[1.125rem]
+                          font-medium
+                          leading-snug
+                          tracking-[-0.015em]
+                          transition-colors
+                          duration-200
+                          sm:text-[1.25rem]
+                          ${
+                            isOpen
+                              ? "text-[#19171D]"
+                              : "text-[#403C39] group-hover:text-[#19171D]"
+                          }
+                        `}
+                      >
+                        {faq.question}
+                      </span>
+                    </div>
+
+                    <span
+                      className={`
+                        mt-0.5
+                        flex
+                        h-8
+                        w-8
+                        shrink-0
+                        items-center
+                        justify-center
+                        rounded-full
+                        border
+                        transition-all
+                        duration-200
+                        ${
+                          isOpen
+                            ? "border-[#7048D8]/30 bg-[#7048D8]/10 text-[#7048D8]"
+                            : "border-[#D3CEC7] text-[#8A837C] group-hover:border-[#BFB8B0] group-hover:text-[#7048D8]"
+                        }
+                      `}
+                      aria-hidden="true"
+                    >
+                      {isOpen ? (
+                        <Minus className="h-3.5 w-3.5" />
+                      ) : (
+                        <Plus className="h-3.5 w-3.5" />
+                      )}
+                    </span>
+                  </button>
+
+                  {isOpen && (
+                    <div
+                      id={`${faq.id}-answer`}
+                      className="pb-7 pl-[2.25rem] pr-10 sm:pl-[3rem] sm:pr-16"
+                    >
+                      <p
+                        className="
+                          max-w-2xl
+                          text-[0.9375rem]
+                          leading-[1.75]
+                          text-[#716C67]
+                          sm:text-base
+                        "
+                      >
+                        {faq.answer}
+                      </p>
+                    </div>
                   )}
                 </div>
-              </button>
+              );
+            })}
+          </div>
+        </div>
 
-              {isOpen && (
-                <div
-                  id={`${faq.id}-answer`}
-                  className="border-t border-[#1d202e]/60 px-6 pb-6 pt-1 sm:px-8"
-                >
-                  <p className="pl-8 text-base leading-relaxed text-[#b8bed2] sm:text-lg">
-                    {faq.answer}
-                  </p>
-                </div>
-              )}
-            </div>
-          );
-        })}
+        {/* Closing note */}
+        <div
+          className="
+            mt-14
+            flex
+            flex-col
+            gap-3
+            border-t
+            border-[#DCD8D2]
+            pt-6
+            text-sm
+            text-[#817A73]
+            sm:flex-row
+            sm:items-center
+            sm:justify-between
+          "
+        >
+          <div className="flex items-center gap-3">
+            <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#7048D8]" />
+
+            <span>
+              Still unsure? That&apos;s exactly what the first conversation is
+              for.
+            </span>
+          </div>
+
+          <span className="text-[#9A938B]">
+            No pressure. Just a clearer next step.
+          </span>
+        </div>
       </div>
     </section>
   );

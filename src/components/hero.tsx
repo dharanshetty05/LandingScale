@@ -37,6 +37,44 @@ export default function Hero() {
     },
   };
 
+    const itemVariants: Variants = {
+    hidden: {
+      opacity: 0,
+      y: shouldReduceMotion ? 0 : 10,
+    },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: shouldReduceMotion ? 0 : 0.5,
+        ease: [0.16, 1, 0.3, 1],
+      },
+    },
+  };
+
+    // Precision draw animation for the "easier to find" emphasis line
+  const underlineVariants: Variants = {
+    hidden: {
+      pathLength: shouldReduceMotion ? 1 : 0,
+      opacity: shouldReduceMotion ? 1 : 0,
+    },
+    show: {
+      pathLength: 1,
+      opacity: 1,
+      transition: {
+        pathLength: {
+          duration: shouldReduceMotion ? 0 : 0.75,
+          ease: [0.16, 1, 0.3, 1],
+          delay: shouldReduceMotion ? 0 : 0.55,
+        },
+        opacity: {
+          duration: shouldReduceMotion ? 0 : 0.2,
+          delay: shouldReduceMotion ? 0 : 0.45,
+        },
+      },
+    },
+  };
+
   return (
     <section
       className="relative isolate flex min-h-[92svh] items-center justify-center overflow-hidden bg-[#FAF9F7] px-6 py-24 sm:py-28 lg:min-h-[94svh] lg:py-32"
@@ -101,7 +139,7 @@ export default function Hero() {
             gap-2
             rounded-full
             border
-            border-[#E5E0F3]
+            border-[#E8E3DF]
             bg-white/70
             px-3.5
             py-1.5
@@ -115,37 +153,62 @@ export default function Hero() {
             sm:mb-8
           "
         >
-          <span
-            aria-hidden="true"
-            className="h-1.5 w-1.5 rounded-full bg-[#694CDC]"
-          />
           Local growth · Web · SEO
         </motion.div>
 
         {/* Main headline */}
-        <motion.h1
-          variants={item}
+                <motion.h1
+          id="hero-headline"
+          variants={itemVariants}
           className="
-            max-w-[820px]
-            text-balance
             font-display
-            text-[2.75rem]
+            text-[2.5rem]
             font-medium
-            leading-[1.08]
-            tracking-[-0.035em]
+            leading-[1.1]
+            tracking-[-0.03em]
             text-[#18161D]
-            sm:text-[3.5rem]
-            md:text-[4.25rem]
-            lg:text-[4.75rem]
-            lg:leading-[1.04]
+            text-balance
+            sm:text-[3.25rem]
+            md:text-[3.875rem]
+            lg:text-[4.25rem]
+            lg:leading-[1.06]
           "
         >
-          Your business should be easier to find online.
+          Your business should be{" "}
+          <span className="relative inline-block whitespace-nowrap">
+            <span className="relative z-10">easier to find</span>
+            {/* Subtle discovery accent stroke drawing under "easier to find" */}
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 240 12"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="
+                pointer-events-none
+                absolute
+                -bottom-1.5
+                left-0
+                w-full
+                overflow-visible
+                text-[#6245D6]
+                sm:-bottom-2
+              "
+            >
+              <motion.path
+                d="M 2 8 C 65 3, 175 3, 238 7"
+                stroke="currentColor"
+                strokeWidth="2.75"
+                strokeLinecap="round"
+                variants={underlineVariants}
+              />
+            </svg>
+          </span>{" "}
+          online.
         </motion.h1>
 
         {/* Supporting statement */}
         <motion.p
-          variants={item}
+          variants={itemVariants}
           className="
             mt-7
             max-w-[570px]
@@ -164,7 +227,7 @@ export default function Hero() {
 
         {/* Primary CTA */}
         <motion.a
-          variants={item}
+          variants={itemVariants}
           href={BOOKING_URL}
           className="
             group

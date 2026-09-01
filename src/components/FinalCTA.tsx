@@ -14,16 +14,15 @@ export function FinalCTASection() {
         lg:py-40
       "
     >
-      {/* Subtle purple atmosphere */}
       <div
         className="
           pointer-events-none
           absolute
           left-1/2
           top-1/2
-          -z-0
-          h-[420px]
-          w-[720px]
+          z-0
+          h-105
+          w-180
           -translate-x-1/2
           -translate-y-1/2
           rounded-full
@@ -98,7 +97,7 @@ export function FinalCTASection() {
                 hover:bg-[#6239C9]
                 hover:shadow-[0_14px_36px_rgba(112,72,216,0.28)]
                 sm:px-10
-                sm:py-[1.125rem]
+                sm:py-4.5
                 sm:text-[1.0625rem]
               "
             >

@@ -1,13 +1,12 @@
 "use client";
 
-import { ArrowDown, ArrowUpRight } from "lucide-react";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
 
 interface ApproachStep {
   number: string;
   title: string;
   headline: string;
   description: string;
-  outcome: string;
 }
 
 const steps: ApproachStep[] = [
@@ -17,7 +16,6 @@ const steps: ApproachStep[] = [
     headline: "Show up when they're looking.",
     description:
       "Your business should be visible when local customers are already searching for the service you provide.",
-    outcome: "Local visibility",
   },
   {
     number: "02",
@@ -25,7 +23,6 @@ const steps: ApproachStep[] = [
     headline: "Give them a reason to choose you.",
     description:
       "Once they find you, make it easy to understand what you do, see proof of your work, and feel confident getting in touch.",
-    outcome: "Credibility & proof",
   },
   {
     number: "03",
@@ -33,301 +30,157 @@ const steps: ApproachStep[] = [
     headline: "Make the next step obvious.",
     description:
       "When someone is ready, remove the friction between interest and action with clear, direct ways to contact you.",
-    outcome: "More opportunities to convert",
   },
 ];
 
+const stepVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 12,
+  },
+  visible: (index: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      delay: index * 0.12,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  }),
+};
+
 export function ApproachSection() {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
     <section
       id="approach"
-      className="
-        relative
-        overflow-hidden
-        bg-[#F5F3EF]
-        px-6
-        py-24
-        sm:py-28
-        lg:py-36
-      "
+      className="bg-[#F5F3EF] px-6 py-24 sm:py-28 lg:py-36"
     >
-      <div className="relative mx-auto max-w-6xl">
-        {/* Section introduction */}
-        <div className="max-w-3xl">
+      <div className="mx-auto max-w-6xl">
+        <div className="grid gap-y-16 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-x-20">
+          {/* Intro */}
+          <div className="lg:sticky lg:top-32 lg:self-start">
 
-          <h2
-            className="
-              max-w-3xl
-              text-balance
-              font-display
-              text-[2.5rem]
-              font-medium
-              leading-[1.06]
-              tracking-[-0.04em]
-              text-[#19171D]
-              sm:text-[3.5rem]
-              lg:text-[4.25rem]
-            "
-          >
-            Everything should lead
-            <br />
-            <span className="text-[#7048D8]">somewhere.</span>
-          </h2>
-
-          <p
-            className="
-              mt-6
-              max-w-2xl
-              text-balance
-              text-[1rem]
-              leading-[1.7]
-              text-[#716C67]
-              sm:text-[1.125rem]
-            "
-          >
-            Getting found is only useful if it leads somewhere. We build the
-            path from the first search to the moment a potential customer gets
-            in touch.
-          </p>
-        </div>
-
-        {/* Continuous journey */}
-        <div className="relative mt-20 sm:mt-24 lg:mt-28">
-          {/* Connecting line */}
-          <div
-            aria-hidden="true"
-            className="
-              pointer-events-none
-              absolute
-              left-[13px]
-              top-4
-              bottom-4
-              w-px
-              bg-[#D8D2C9]
-              md:left-1/2
-              md:top-[32px]
-              md:bottom-[32px]
-              md:-translate-x-1/2
-            "
-          />
-
-          <div className="relative space-y-16 sm:space-y-20 lg:space-y-24">
-            {steps.map((step, index) => {
-              const isEven = index % 2 === 1;
-
-              return (
-                <div
-                  key={step.number}
-                  className="
-                    relative
-                    grid
-                    grid-cols-[28px_1fr]
-                    gap-6
-                    md:grid-cols-[1fr_64px_1fr]
-                    md:gap-0
-                  "
-                >
-                  {/* Left content */}
-                  <div
-                    className={`
-                      hidden
-                      md:block
-                      ${
-                        isEven
-                          ? "md:col-start-3 md:pl-10"
-                          : "md:col-start-1 md:pr-10 md:text-right"
-                      }
-                    `}
-                  >
-                    <div
-                      className={
-                        isEven
-                          ? "flex flex-col items-start"
-                          : "flex flex-col items-end"
-                      }
-                    >
-                      <p
-                        className="
-                          text-[0.6875rem]
-                          font-medium
-                          uppercase
-                          tracking-[0.14em]
-                          text-[#8A837C]
-                        "
-                      >
-                        {step.outcome}
-                      </p>
-
-                      <p
-                        className="
-                          mt-3
-                          max-w-sm
-                          text-sm
-                          leading-[1.7]
-                          text-[#716C67]
-                        "
-                      >
-                        {step.description}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Mobile / desktop number */}
-                  <div
-                    className="
-                      relative
-                      z-10
-                      col-start-1
-                      flex
-                      h-7
-                      w-7
-                      items-center
-                      justify-center
-                      rounded-full
-                      border
-                      border-[#D8D2C9]
-                      bg-[#F5F3EF]
-                      md:col-start-2
-                      md:row-start-1
-                      md:mx-auto
-                      md:h-16
-                      md:w-16
-                    "
-                  >
-                    <span
-                      className="
-                        font-mono
-                        text-[0.625rem]
-                        font-medium
-                        tracking-[0.12em]
-                        text-[#7659CF]
-                        md:text-xs
-                      "
-                    >
-                      {step.number}
-                    </span>
-                  </div>
-
-                  {/* Main content */}
-                  <div
-                    className={`
-                      col-start-2
-                      md:row-start-1
-                      ${
-                        isEven
-                          ? "md:col-start-1 md:row-start-1 md:pr-10 md:text-right"
-                          : "md:col-start-3 md:pl-10"
-                      }
-                    `}
-                  >
-                    <div
-                      className={`
-                        ${
-                          isEven
-                            ? "md:flex md:flex-col md:items-end"
-                            : ""
-                        }
-                      `}
-                    >
-                      <p
-                        className="
-                          text-[0.6875rem]
-                          font-medium
-                          uppercase
-                          tracking-[0.14em]
-                          text-[#8A837C]
-                          md:hidden
-                        "
-                      >
-                        {step.outcome}
-                      </p>
-
-                      <h3
-                        className="
-                          mt-3
-                          font-display
-                          text-[2rem]
-                          font-medium
-                          leading-none
-                          tracking-[-0.03em]
-                          text-[#19171D]
-                          sm:text-[2.5rem]
-                          md:mt-0
-                        "
-                      >
-                        {step.title}
-                      </h3>
-
-                      <p
-                        className="
-                          mt-4
-                          max-w-md
-                          text-[1.05rem]
-                          font-medium
-                          leading-[1.5]
-                          text-[#302C32]
-                          sm:text-[1.125rem]
-                        "
-                      >
-                        {step.headline}
-                      </p>
-
-                      <p
-                        className="
-                          mt-4
-                          max-w-md
-                          text-sm
-                          leading-[1.7]
-                          text-[#716C67]
-                          md:hidden
-                        "
-                      >
-                        {step.description}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Closing statement */}
-        <div
-          className="
-            mt-20
-            border-t
-            border-[#DCD8D2]
-            pt-7
-            sm:mt-24
-            lg:mt-28
-          "
-        >
-          <div
-            className="
-              flex
-              flex-col
-              gap-5
-              sm:flex-row
-              sm:items-center
-              sm:justify-between
-            "
-          >
-            <p
+            <h2
               className="
-                max-w-2xl
-                text-sm
-                leading-[1.7]
-                text-[#817A73]
-                sm:text-[0.9375rem]
+                max-w-md
+    text-balance
+    font-display
+    text-[2.5rem]
+    font-medium
+    leading-[1.06]
+    tracking-[-0.04em]
+    text-[#19171D]
+    sm:text-[3rem]
+    lg:text-[3.5rem]
               "
             >
-              <span className="font-medium text-[#252229]">
-                The goal isn't more marketing activity.
-              </span>{" "}
-              It's a clearer path from being discovered to being contacted.
+              Everything should lead
+              <span className="text-[#7048D8]"> somewhere.</span>
+            </h2>
+
+            <p
+              className="
+                mt-7
+    max-w-md
+    text-balance
+    text-[1rem]
+    leading-[1.7]
+    text-[#716C67]
+    sm:text-[1.0625rem]
+
+              "
+            >
+              Getting found is only useful if it leads somewhere. We build
+              the path from the first search to the moment a potential
+              customer gets in touch.
             </p>
           </div>
+
+          {/* Steps */}
+          <ol className="flex flex-col">
+            {steps.map((step, index) => (
+              <motion.li
+                key={step.number}
+                custom={index}
+                initial={prefersReducedMotion ? undefined : "hidden"}
+                whileInView={prefersReducedMotion ? undefined : "visible"}
+                viewport={{ once: true, amount: 0.25 }}
+                variants={stepVariants}
+                className={`
+                  py-8
+                  sm:py-9
+                  ${
+                    index > 0
+                      ? "border-t border-[#DCD8D2]"
+                      : ""
+                  }
+                `}
+              >
+                <div className="grid grid-cols-[40px_minmax(0,1fr)] gap-5 sm:grid-cols-[48px_minmax(0,1fr)] sm:gap-6">
+                  {/* Step number */}
+                  <span
+                    aria-hidden="true"
+                    className="
+                      pt-1
+                      font-mono
+                      text-xs
+                      font-medium
+                      tracking-[0.12em]
+                      text-[#7659CF]
+                    "
+                  >
+                    {step.number}
+                  </span>
+
+                  {/* Step content */}
+                  <div>
+                    <h3
+                      className="
+                        font-display
+                        text-[1.875rem]
+                        font-medium
+                        leading-none
+                        tracking-[-0.035em]
+                        text-[#19171D]
+                        sm:text-[2.25rem]
+                      "
+                    >
+                      {step.title}
+                    </h3>
+
+                    <p
+                      className="
+                        mt-4
+                        max-w-lg
+                        text-[1.0625rem]
+                        font-medium
+                        leading-[1.5]
+                        text-[#302C32]
+                        sm:text-[1.125rem]
+                      "
+                    >
+                      {step.headline}
+                    </p>
+
+                    <p
+                      className="
+                        mt-3
+                        max-w-md
+                        text-sm
+                        leading-[1.75]
+                        text-[#716C67]
+                        sm:text-[0.9375rem]
+                      "
+                    >
+                      {step.description}
+                    </p>
+                  </div>
+                </div>
+              </motion.li>
+            ))}
+          </ol>
         </div>
       </div>
     </section>

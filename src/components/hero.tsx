@@ -2,11 +2,37 @@
 
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const BOOKING_URL = "https://cal.com/scalewithlakshya/strategy-call";
 
 export default function Hero() {
   const shouldReduceMotion = useReducedMotion();
+  const [introComplete, setIntroComplete] = useState(false);
+
+  useEffect(() => {
+  if (shouldReduceMotion) {
+    setIntroComplete(true);
+    return;
+  }
+
+  const hasPlayed = sessionStorage.getItem("sw-intro-played") === "true";
+
+  if (hasPlayed) {
+    setIntroComplete(true);
+    return;
+  }
+
+  const handleIntroComplete = () => {
+    setIntroComplete(true);
+  };
+
+  window.addEventListener("sw:intro-complete", handleIntroComplete);
+
+  return () => {
+    window.removeEventListener("sw:intro-complete", handleIntroComplete);
+  };
+}, [shouldReduceMotion]);
 
   const container: Variants = {
     hidden: {},
@@ -82,7 +108,7 @@ export default function Hero() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_75%_65%_at_50%_42%,rgba(255,255,255,0.75)_0%,rgba(255,255,255,0)_65%)]" />
       </div>
 
-      <motion.div variants={container} initial="hidden" animate="show" className="relative z-10 mx-auto flex max-w-205 flex-col items-center text-center">
+      <motion.div variants={container} initial="hidden" animate={introComplete ? "show" : "hidden"} className="relative z-10 mx-auto flex max-w-205 flex-col items-center text-center">
         {/* Positioning eyebrow */}
         <motion.div variants={item} className="mb-7 inline-flex items-center gap-2 rounded-full border border-[#E8E3DF] bg-white/70 px-3.5 py-1.5 text-[0.6875rem] font-medium uppercase tracking-[0.16em] text-[#6852B8] shadow-[0_1px_2px_rgba(20,16,35,0.03)] backdrop-blur-sm sm:mb-8">
           Local growth · Web · SEO

@@ -1,13 +1,22 @@
 "use client";
 
-import { useEffect, useState, type ReactNode } from "react";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type ReactNode,
+  type RefObject,
+} from "react";
 import { AnimatePresence, motion, useReducedMotion, useScroll, useMotionValueEvent } from "motion/react";
 import { Menu, X } from "lucide-react";
 
 const NAV_ITEMS = [
-  { name: "About", link: "#about" },
   { name: "Services", link: "#services" },
   { name: "Work", link: "#work" },
+  { name: "Approach", link: "#approach" },
+  { name: "FAQ", link: "#faq" },
 ] as const;
 
 const SCROLL_THRESHOLD = 72;
@@ -19,8 +28,12 @@ const SCROLL_THRESHOLD = 72;
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [navRevealed, setNavRevealed] = useState(false);
   const { scrollY } = useScroll();
   const prefersReducedMotion = useReducedMotion();
+
+  const desktopLogoRef = useRef<HTMLAnchorElement>(null);
+  const mobileLogoRef = useRef<HTMLAnchorElement>(null);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     setScrolled(latest > SCROLL_THRESHOLD);
@@ -38,23 +51,41 @@ export function Navbar() {
   }, []);
 
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
+  const revealNav = useCallback(() => {
+    setNavRevealed(true);
+    window.dispatchEvent(new Event("sw:intro-complete"));
+  }, []);
 
   const transition = prefersReducedMotion
     ? { duration: 0 }
     : { type: "spring" as const, stiffness: 220, damping: 32, mass: 0.6 };
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50">
-      <DesktopNavbar scrolled={scrolled} transition={transition} />
-      <MobileNavbar
-        scrolled={scrolled}
-        transition={transition}
-        isOpen={isMobileMenuOpen}
-        onToggle={() => setIsMobileMenuOpen((prev) => !prev)}
-        onClose={closeMobileMenu}
-        reducedMotion={Boolean(prefersReducedMotion)}
+    <>
+      <IntroLogo
+        desktopTargetRef={desktopLogoRef}
+        mobileTargetRef={mobileLogoRef}
+        onSettle={revealNav}
       />
-    </header>
+      <header className="fixed inset-x-0 top-0 z-50">
+        <DesktopNavbar
+          scrolled={scrolled}
+          transition={transition}
+          navRevealed={navRevealed}
+          logoRef={desktopLogoRef}
+        />
+        <MobileNavbar
+          scrolled={scrolled}
+          transition={transition}
+          isOpen={isMobileMenuOpen}
+          onToggle={() => setIsMobileMenuOpen((prev) => !prev)}
+          onClose={closeMobileMenu}
+          reducedMotion={Boolean(prefersReducedMotion)}
+          navRevealed={navRevealed}
+          logoRef={mobileLogoRef}
+        />
+      </header>
+    </>
   );
 }
 
@@ -65,9 +96,13 @@ export function Navbar() {
 function DesktopNavbar({
   scrolled,
   transition,
+  navRevealed,
+  logoRef,
 }: {
   scrolled: boolean;
   transition: Record<string, unknown>;
+  navRevealed: boolean;
+  logoRef: RefObject<HTMLAnchorElement | null>;
 }) {
   return (
     <motion.div
@@ -87,11 +122,18 @@ function DesktopNavbar({
       className="relative mx-auto hidden max-w-6xl flex-row items-center justify-between rounded-full border lg:flex"
       style={{ WebkitBackdropFilter: scrolled ? "blur(12px)" : "blur(0px)" }}
     >
-      <Logo />
+      <Logo logoRef={logoRef} />
       <DesktopNavLinks />
-      <NavbarCta href="#book" className="px-5 py-2.5">
-        Book a Call
-      </NavbarCta>
+      <motion.div
+        initial={{ opacity: 0, y: -6 }}
+        animate={navRevealed ? { opacity: 1, y: 0 } : { opacity: 0, y: -6 }}
+        transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+        className="contents"
+      >
+        <NavbarCta href="#book" className="px-5 py-2.5">
+          Book Your Call
+        </NavbarCta>
+      </motion.div>
     </motion.div>
   );
 }
@@ -136,6 +178,8 @@ function MobileNavbar({
   onToggle,
   onClose,
   reducedMotion,
+  navRevealed,
+  logoRef,
 }: {
   scrolled: boolean;
   transition: Record<string, unknown>;
@@ -143,6 +187,8 @@ function MobileNavbar({
   onToggle: () => void;
   onClose: () => void;
   reducedMotion: boolean;
+  navRevealed: boolean;
+  logoRef: RefObject<HTMLAnchorElement | null>;
 }) {
   return (
     <motion.div
@@ -164,17 +210,20 @@ function MobileNavbar({
       style={{ WebkitBackdropFilter: scrolled ? "blur(12px)" : "blur(0px)" }}
     >
       <div className="flex w-full flex-row items-center justify-between">
-        <Logo />
-        <button
+        <Logo logoRef={logoRef} />
+        <motion.button
           type="button"
           onClick={onToggle}
           aria-label={isOpen ? "Close menu" : "Open menu"}
           aria-expanded={isOpen}
           aria-controls="mobile-nav-menu"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: navRevealed ? 1 : 0 }}
+          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
           className="relative flex h-10 w-10 items-center justify-center rounded-full text-[#18161D] transition-colors hover:bg-black/[0.045] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6245D6] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FAF9F7]"
         >
           {isOpen ? <X size={22} strokeWidth={1.8} /> : <Menu size={22} strokeWidth={1.8} />}
-        </button>
+        </motion.button>
       </div>
 
       <AnimatePresence>
@@ -212,9 +261,10 @@ function MobileNavbar({
 /*                              Shared subparts                               */
 /* -------------------------------------------------------------------------- */
 
-function Logo() {
+function Logo({ logoRef }: { logoRef: RefObject<HTMLAnchorElement | null> }) {
   return (
     <a
+      ref={logoRef}
       href="/"
       className="relative z-10 flex items-center rounded-full px-1 py-1 text-lg font-semibold tracking-tight text-[#18161D] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6245D6] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FAF9F7]"
     >
@@ -238,9 +288,154 @@ function NavbarCta({
     <a
       href={href}
       onClick={onClick}
-      className={`relative z-10 inline-flex items-center justify-center rounded-full bg-[#0A0A0D] px-4 py-2 text-center text-sm font-semibold text-white shadow-sm transition duration-200 hover:-translate-y-0.5 hover:bg-[#18161D] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6245D6] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FAF9F7] ${className ?? ""}`}
+      className={`relative z-10 inline-flex items-center justify-center rounded-full bg-[#6245D6] px-4 py-2 text-center text-sm font-semibold text-white shadow-sm transition duration-200 hover:-translate-y-0.5 hover:bg-[#5438C2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6245D6] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FAF9F7] ${className ?? ""}`}
     >
       {children}
     </a>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/*                              Intro animation                               */
+/* -------------------------------------------------------------------------- */
+
+const INTRO_SESSION_KEY = "sw-intro-played";
+
+// Tunable timeline (ms). Total runtime ≈ HOLD + MOVE + SETTLE + FADE.
+const INTRO_HOLD_MS = 600; // fade/scale-in, then a brief static hold
+const INTRO_MOVE_MS = 650; // scale-down + move into the navbar position
+const INTRO_SETTLE_MS = 120; // pause once the logo has landed
+const INTRO_FADE_MS = 320; // backdrop dissolve, revealing navbar + hero
+
+const INTRO_EASE_MOVE: [number, number, number, number] = [0.65, 0, 0.35, 1];
+const INTRO_EASE_IN: [number, number, number, number] = [0.16, 1, 0.3, 1];
+const INTRO_EASE_OUT: [number, number, number, number] = [0.4, 0, 0.2, 1];
+
+type IntroPhase = "pending" | "intro" | "moving" | "done" | "skip";
+
+function getVisibleLogoTarget(
+  desktop: HTMLElement | null,
+  mobile: HTMLElement | null,
+): HTMLElement | null {
+  if (desktop && desktop.offsetWidth > 0) return desktop;
+  if (mobile && mobile.offsetWidth > 0) return mobile;
+  return null;
+}
+
+function IntroLogo({
+  desktopTargetRef,
+  mobileTargetRef,
+  onSettle,
+}: {
+  desktopTargetRef: RefObject<HTMLAnchorElement | null>;
+  mobileTargetRef: RefObject<HTMLAnchorElement | null>;
+  onSettle: () => void;
+}) {
+  const [phase, setPhase] = useState<IntroPhase>("pending");
+  const [offset, setOffset] = useState({ x: 0, y: 0, scale: 1 });
+  const sourceRef = useRef<HTMLDivElement>(null);
+
+  // Decide, before the browser paints, whether the intro should play at all.
+  useLayoutEffect(() => {
+    let alreadyPlayed = false;
+    try {
+      alreadyPlayed = sessionStorage.getItem(INTRO_SESSION_KEY) === "true";
+    } catch {
+      alreadyPlayed = false;
+    }
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (alreadyPlayed || reduced) {
+      onSettle();
+      setPhase("skip");
+      return;
+    }
+    setPhase("intro");
+    // Runs once on mount only — intentionally not re-evaluated on re-renders.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Hold, then measure the real navbar logo and kick off the move.
+  useEffect(() => {
+    if (phase !== "intro") return;
+    document.body.style.overflow = "hidden";
+
+    const timer = setTimeout(() => {
+      const target = getVisibleLogoTarget(desktopTargetRef.current, mobileTargetRef.current);
+      const source = sourceRef.current;
+
+      if (target && source) {
+        const targetRect = target.getBoundingClientRect();
+        const sourceRect = source.getBoundingClientRect();
+        setOffset({
+          x: targetRect.left + targetRect.width / 2 - (sourceRect.left + sourceRect.width / 2),
+          y: targetRect.top + targetRect.height / 2 - (sourceRect.top + sourceRect.height / 2),
+          scale: sourceRect.width > 0 ? targetRect.width / sourceRect.width : 1,
+        });
+      }
+      setPhase("moving");
+    }, INTRO_HOLD_MS);
+
+    return () => clearTimeout(timer);
+  }, [phase, desktopTargetRef, mobileTargetRef]);
+
+  // Once landed, reveal the navbar content, then dissolve the backdrop.
+  useEffect(() => {
+    if (phase !== "moving") return;
+
+    const settleTimer = setTimeout(onSettle, INTRO_MOVE_MS);
+    const doneTimer = setTimeout(() => {
+      setPhase("done");
+      document.body.style.overflow = "";
+      try {
+        sessionStorage.setItem(INTRO_SESSION_KEY, "true");
+      } catch {
+        // Storage unavailable (e.g. private browsing) — intro will simply replay.
+      }
+    }, INTRO_MOVE_MS + INTRO_SETTLE_MS);
+
+    return () => {
+      clearTimeout(settleTimer);
+      clearTimeout(doneTimer);
+    };
+  }, [phase, onSettle]);
+
+  useEffect(() => {
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, []);
+
+  if (phase === "pending" || phase === "skip") return null;
+
+  return (
+    <AnimatePresence>
+      {phase !== "done" && (
+        <motion.div
+          aria-hidden="true"
+          className="fixed inset-0 z-[60] flex items-center justify-center bg-[#FAF9F7]"
+          initial={{ opacity: 1 }}
+          exit={{ opacity: 0, transition: { duration: INTRO_FADE_MS / 1000, ease: INTRO_EASE_OUT } }}
+        >
+          <motion.div
+            ref={sourceRef}
+            initial={{ opacity: 0, scale: 0.94 }}
+            animate={
+              phase === "moving"
+                ? { opacity: 1, x: offset.x, y: offset.y, scale: offset.scale }
+                : { opacity: 1, scale: 1 }
+            }
+            transition={
+              phase === "moving"
+                ? { duration: INTRO_MOVE_MS / 1000, ease: INTRO_EASE_MOVE }
+                : { duration: 0.4, ease: INTRO_EASE_IN }
+            }
+            className="px-6 text-center text-[clamp(1.75rem,7vw,3.25rem)] font-semibold tracking-tight text-[#18161D]"
+          >
+            ScaleWithLakshya
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }

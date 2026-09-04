@@ -13,6 +13,7 @@ export function ExampleWorkSection() {
     <section
       id="work"
       className="
+        scroll-mt-24
         relative
         overflow-hidden
         bg-[#F5F3EF]
@@ -189,7 +190,6 @@ export function ExampleWorkSection() {
                     fill
                     sizes="(max-width: 1024px) 100vw, 64vw"
                     className="object-contain object-center"
-                    priority
                   />
                 )}
               </div>

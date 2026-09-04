@@ -40,7 +40,7 @@ const pillars: SolutionPillar[] = [
 
 export function SolutionSection() {
   return (
-    <section id="solution" className="relative overflow-hidden bg-[#F5F3EF] px-6 py-24 sm:py-28 lg:py-36">
+    <section id="services" className="scroll-mt-24 relative overflow-hidden bg-[#F5F3EF] px-6 py-24 sm:py-28 lg:py-36">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute right-[-15%] top-[-20%] h-155 w-155 rounded-full bg-[radial-gradient(circle,rgba(105,76,218,0.09)_0%,rgba(105,76,218,0)_68%)] blur-3xl"

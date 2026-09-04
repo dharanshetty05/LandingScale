@@ -130,8 +130,8 @@ function DesktopNavbar({
         transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
         className="contents"
       >
-        <NavbarCta href="#book" className="px-5 py-2.5">
-          Book Your Call
+        <NavbarCta href="https://cal.com/scalewithlakshya" className="px-5 py-2.5">
+          Book Your Strategy Call
         </NavbarCta>
       </motion.div>
     </motion.div>
@@ -247,8 +247,8 @@ function MobileNavbar({
                 {item.name}
               </a>
             ))}
-            <NavbarCta href="#book" onClick={onClose} className="mt-2 w-full py-3">
-              Book a Call
+            <NavbarCta href="https://cal.com/scalewithlakshya" onClick={onClose} className="mt-2 w-full py-3">
+              Book Your Strategy Call
             </NavbarCta>
           </motion.nav>
         )}
@@ -286,7 +286,7 @@ function NavbarCta({
 }) {
   return (
     <a
-      href={href}
+      href={href} target="_blank" rel="noopener noreferrer"
       onClick={onClick}
       className={`relative z-10 inline-flex items-center justify-center rounded-full bg-[#6245D6] px-4 py-2 text-center text-sm font-semibold text-white shadow-sm transition duration-200 hover:-translate-y-0.5 hover:bg-[#5438C2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6245D6] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FAF9F7] ${className ?? ""}`}
     >

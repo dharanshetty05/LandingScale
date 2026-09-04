@@ -13,10 +13,63 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const siteUrl = "https://scalewithlakshya.vercel.app";
+
 export const metadata: Metadata = {
-  title: "ScaleWithLakshya — Grow Your Home Service Business Online",
+  metadataBase: new URL(siteUrl),
+
+  title: "ScaleWithLakshya — Get Found. Build Trust. Get Enquiries.",
   description:
-    "Google Business Profile, conversion-focused websites, and technical SEO for home service businesses.",
+    "ScaleWithLakshya helps home service businesses improve their Google presence, build better websites, and strengthen their technical SEO to turn online attention into enquiries.",
+
+  alternates: {
+    canonical: "/",
+  },
+
+  authors: [
+    {
+      name: "ScaleWithLakshya",
+    },
+  ],
+
+  creator: "ScaleWithLakshya",
+  publisher: "ScaleWithLakshya",
+  applicationName: "ScaleWithLakshya",
+
+  robots: {
+    index: true,
+    follow: true,
+  },
+
+  openGraph: {
+    type: "website",
+    url: "/",
+    siteName: "ScaleWithLakshya",
+    title: "ScaleWithLakshya — Get Found. Build Trust. Get Enquiries.",
+    description:
+      "Google Business Profile, conversion-focused websites, and technical SEO for home service businesses.",
+    locale: "en_US",
+    images: [
+      {
+        url: "/opengraph-image.png",
+        width: 1200,
+        height: 630,
+        alt: "ScaleWithLakshya — Get Found. Build Trust. Get Enquiries.",
+      },
+    ],
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "ScaleWithLakshya — Get Found. Build Trust. Get Enquiries.",
+    description:
+      "Google Business Profile, conversion-focused websites, and technical SEO for home service businesses.",
+    images: ["/opengraph-image.png"],
+  },
+
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

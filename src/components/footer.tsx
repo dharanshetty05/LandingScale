@@ -1,8 +1,8 @@
 const pages = [
   { label: "Home", href: "#home" },
-  { label: "Solution", href: "#solution" },
+  { label: "Services", href: "#services" },
   { label: "Work", href: "#work" },
-  { label: "Process", href: "#process" },
+  { label: "Approach", href: "#approach" },
   { label: "FAQ", href: "#faq" },
 ];
 

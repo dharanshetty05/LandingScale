@@ -55,7 +55,7 @@ export function ApproachSection() {
   return (
     <section
       id="approach"
-      className="bg-[#F5F3EF] px-6 py-24 sm:py-28 lg:py-36"
+      className="scroll-mt-24 bg-[#F5F3EF] px-6 py-24 sm:py-28 lg:py-36"
     >
       <div className="mx-auto max-w-6xl">
         <div className="grid gap-y-16 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-x-20">

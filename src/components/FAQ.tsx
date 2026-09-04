@@ -88,6 +88,7 @@ export function FAQSection() {
     <section
       id="faq"
       className="
+        scroll-mt-24
         bg-[#F5F3EF]
         px-6
         py-24

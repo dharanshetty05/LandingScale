@@ -4,7 +4,7 @@ import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
 
-const BOOKING_URL = "https://cal.com/scalewithlakshya/strategy-call";
+const BOOKING_URL = "https://cal.com/scalewithlakshya";
 
 export default function Hero() {
   const shouldReduceMotion = useReducedMotion();
@@ -97,7 +97,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative isolate flex min-h-[76svh] items-center justify-center overflow-hidden bg-[#FAF9F7] px-6 py-16 sm:py-16 lg:min-h-[80svh] lg:py-24" aria-label="Introduction">
+    <section id="home" className="relative isolate flex min-h-[76svh] items-center justify-center overflow-hidden bg-[#FAF9F7] px-6 py-16 sm:py-16 lg:min-h-[80svh] lg:py-24" aria-label="Introduction">
       {/* Subtle atmospheric background */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
         {/* Soft purple light from the upper-right */}
@@ -144,7 +144,7 @@ export default function Hero() {
           <span aria-hidden="true" className="pointer-events-none absolute -inset-2 -z-10 rounded-[9px] bg-[#6245D6]/35 opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-70" />
 
           <motion.a
-            href={BOOKING_URL}
+            href={BOOKING_URL} target="_blank" rel="noopener noreferrer"
             className="group relative inline-flex items-center justify-center gap-2.5 overflow-hidden rounded-[9px] bg-[#6245D6] px-6 py-3.5 text-[0.9375rem] font-medium text-white shadow-[0_8px_24px_-10px_rgba(98,69,214,0.55)] transition-all duration-300 ease-out hover:-translate-y-0.5 hover:bg-[#573AC9] hover:shadow-[0_14px_32px_-10px_rgba(98,69,214,0.70)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8068E3] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F5F3EF] sm:mt-10"
           >
             {/* Shine sweep */}

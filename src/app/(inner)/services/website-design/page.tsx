@@ -9,8 +9,8 @@ import { ProcessSection } from "@/components/website-design/ProcessSection";
 import { FaqSection } from "@/components/website-design/FaqSection";
 import { FinalCta } from "@/components/website-design/FinalCta";
 
-const SITE_URL = "https://www.scalewithlakshya.com";
-const PAGE_PATH = "/services/website-design/";
+const SITE_URL = "https://scalewithlakshya.vercel.app";
+const PAGE_PATH = "/services/website-design";
 
 export const metadata: Metadata = {
   title: "Website Design for Home-Service Businesses | ScaleWithLakshya",

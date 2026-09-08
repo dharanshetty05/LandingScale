@@ -109,11 +109,6 @@ export default function ServicesHero() {
       </div>
 
       <motion.div variants={container} initial="hidden" animate={introComplete ? "show" : "hidden"} className="relative z-10 mx-auto flex max-w-205 flex-col items-center text-center">
-        {/* Positioning eyebrow */}
-        <motion.div variants={item} className="mb-7 inline-flex items-center gap-2 rounded-full border border-[#E8E3DF] bg-white/70 px-3.5 py-1.5 text-[0.6875rem] font-medium uppercase tracking-[0.16em] text-[#6852B8] shadow-[0_1px_2px_rgba(20,16,35,0.03)] backdrop-blur-sm sm:mb-8">
-          Local growth · Web · SEO
-        </motion.div>
-
         {/* Main headline */}
         <motion.h1 id="hero-headline" variants={itemVariants} className="font-display text-[2.5rem] font-medium leading-[1.1] tracking-[-0.03em] text-[#18161D] text-balance sm:text-[3.25rem] md:text-[3.875rem] lg:text-[4.25rem] lg:leading-[1.06]">
           Everything you need to turn{" "}

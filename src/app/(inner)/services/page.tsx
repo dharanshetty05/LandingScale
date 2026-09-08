@@ -10,7 +10,7 @@ export default function ServicesHome() {
         <>
             <main className="flex min-h-screen flex-col bg-background">
                 <ServicesHero />
-                {/* <ServiceAreas /> */}
+                <ServiceAreas />
                 <SolutionSection />
                 <ICP />
                 <ServicesFAQSection />

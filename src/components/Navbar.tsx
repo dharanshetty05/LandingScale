@@ -13,7 +13,7 @@ import { AnimatePresence, motion, useReducedMotion, useScroll, useMotionValueEve
 import { Menu, X } from "lucide-react";
 
 const NAV_ITEMS = [
-  { name: "Services", link: "#services" },
+  { name: "Services", link: "/services" },
   { name: "Work", link: "#work" },
   { name: "Approach", link: "#approach" },
   { name: "FAQ", link: "#faq" },

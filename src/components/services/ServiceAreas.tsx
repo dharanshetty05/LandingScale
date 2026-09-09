@@ -16,7 +16,7 @@ const services = [
       "Basic profile optimization",
     ],
     cta: "Explore Google Business Profile",
-    href: "#google-business-profile",
+    href: "/services/google-business-profile",
   },
   {
     number: "02",
@@ -34,7 +34,7 @@ const services = [
       "Quote/contact form",
     ],
     cta: "Explore Website Design",
-    href: "#website",
+    href: "/services/website-design",
   },
   {
     number: "03",

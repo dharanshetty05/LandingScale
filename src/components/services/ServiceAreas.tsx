@@ -52,7 +52,7 @@ const services = [
       "Mobile & speed checks",
     ],
     cta: "Explore Technical SEO",
-    href: "#technical-seo",
+    href: "/services/technical-seo",
   },
 ];
 

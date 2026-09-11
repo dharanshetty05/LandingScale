@@ -11,7 +11,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${siteUrl}/services`,
     },
     {
-      url: `${siteUrl}/services/website-design`,
+      url: `${siteUrl}/services/google-business-profile`,
+    },
+    {
+      url: `${siteUrl}/services/technical-seo`,
     },
   ];
 }

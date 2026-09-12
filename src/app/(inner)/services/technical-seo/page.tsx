@@ -1,3 +1,4 @@
+import Fixes from "@/components/technical-seo/fixes";
 import { TechSEOFAQSection } from "@/components/technical-seo/techseo-FAQ";
 import { TechSEOFinalCTASection } from "@/components/technical-seo/techseo-FinalCTA";
 import TechSEOHero from "@/components/technical-seo/techseo-hero";
@@ -12,6 +13,7 @@ export default function techSEOHome() {
                 <TechSEOHero />
                 <WhytechSEO />
                 <TechSEOOptimise />
+                <Fixes />
                 <TechSEOICP />
                 <TechSEOFAQSection />
                 <TechSEOFinalCTASection />

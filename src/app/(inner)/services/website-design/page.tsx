@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
-import { BuildSection } from "@/components/website-design/BuildSection";
-import { IndustryFitSection } from "@/components/website-design/IndustryFitSection";
-import { WhyUsSection } from "@/components/website-design/WhyUsSection";
-import { ProcessSection } from "@/components/website-design/ProcessSection";
-import { FaqSection } from "@/components/website-design/FaqSection";
-import { FinalCta } from "@/components/website-design/FinalCta";
 import WebHero from "@/components/website-design/web-hero";
 import WhyWeb from "@/components/website-design/WhyWeb";
 import { WebOptimise } from "@/components/website-design/web-optimise";
+import { WebFinalCTASection } from "@/components/website-design/web-FinalCTA";
+import { WebFAQSection } from "@/components/website-design/web-FAQ";
+import WebICP from "@/components/website-design/web-ICP";
+import WebLook from "@/components/website-design/web-look";
+import { WebWorkSection } from "@/components/website-design/web-work";
 
 const SITE_URL = "https://scalewithlakshya.vercel.app";
 const PAGE_PATH = "/services/website-design";
@@ -84,12 +83,10 @@ export default function WebsiteDesignPage() {
       <WebHero />
       <WhyWeb />
       <WebOptimise />
-      <BuildSection />
-      <IndustryFitSection />
-      <WhyUsSection />
-      <ProcessSection />
-      <FaqSection />
-      <FinalCta />
+      <WebWorkSection />
+      <WebICP />
+      <WebFAQSection />
+      <WebFinalCTASection />
     </main>
   );
 }

@@ -1,5 +1,5 @@
 import type { JSX } from "react";
-import Marquee from "../marquee";
+import Marquee from "../homepage/marquee";
 
 export default function WebICP(): JSX.Element {
   return (

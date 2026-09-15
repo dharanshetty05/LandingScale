@@ -1,13 +1,13 @@
-import { ApproachSection } from "@/components/approach";
-import { FAQSection } from "@/components/FAQ";
-import { FinalCTASection } from "@/components/FinalCTA";
-import { Footer } from "@/components/footer";
-import Hero from "@/components/hero";
-import Marquee from "@/components/marquee";
-import { Navbar } from "@/components/Navbar";
+import { ApproachSection } from "@/components/homepage/approach";
+import { FAQSection } from "@/components/homepage/FAQ";
+import { FinalCTASection } from "@/components/homepage/FinalCTA";
+import { Footer } from "@/components/homepage/footer";
+import Hero from "@/components/homepage/hero";
+import Marquee from "@/components/homepage/marquee";
+import { Navbar } from "@/components/homepage/Navbar";
 import { StructuredData } from "@/components/seo/structured-data";
-import { SolutionSection } from "@/components/solution";
-import { ExampleWorkSection } from "@/components/work";
+import { SolutionSection } from "@/components/homepage/solution";
+import { ExampleWorkSection } from "@/components/homepage/work";
 
 export default function Home() {
   return (

@@ -1,9 +1,9 @@
-import { FinalCTASection } from "@/components/FinalCTA";
+import { FinalCTASection } from "@/components/homepage/FinalCTA";
 import ICP from "@/components/services/ICP";
 import ServiceAreas from "@/components/services/ServiceAreas";
 import { ServicesFAQSection } from "@/components/services/services-FAQ";
 import ServicesHero from "@/components/services/services-hero";
-import { SolutionSection } from "@/components/solution";
+import { SolutionSection } from "@/components/homepage/solution";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {

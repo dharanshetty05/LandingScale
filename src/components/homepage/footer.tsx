@@ -47,7 +47,7 @@ export function Footer() {
               ))}
               <li className="shrink-0">
                 <a
-                  href="https://instagram.com/"
+                  href="https://instagram.com/scalewithlakshya"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Follow me on Instagram"

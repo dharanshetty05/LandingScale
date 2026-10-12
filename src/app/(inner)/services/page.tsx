@@ -13,6 +13,19 @@ export const metadata: Metadata = {
     alternates: {
         canonical: "/services",
     },
+    openGraph: {
+        title: "Local SEO & Website Services for Home Service Businesses",
+        description:
+            "Google Business Profile optimization, conversion-focused websites, and technical SEO for home service businesses.",
+        url: "/services",
+        type: "website",
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "Local SEO & Website Services for Home Service Businesses",
+        description:
+            "Google Business Profile optimization, conversion-focused websites, and technical SEO for local service businesses.",
+    },
 };
 
 export default function ServicesHome() {

@@ -79,6 +79,24 @@ export function Footer() {
                   </span>
                 </a>
               </li>
+
+              <li className="shrink-0">
+  <a
+    href="https://www.facebook.com/profile.php?id=61594466999865"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Follow ScaleWithLakshya on Facebook"
+    className="group/fb inline-flex items-center gap-1.5 text-[15px] font-medium leading-5 tracking-[-0.01em] text-[#7C5CFC] transition-opacity duration-200 ease-out hover:opacity-75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7C5CFC]/40 focus-visible:ring-offset-4 motion-reduce:transition-none"
+  >
+    <span>Follow on Facebook</span>
+    <span
+      aria-hidden="true"
+      className="inline-block transition-transform duration-200 ease-out group-hover/fb:translate-x-[3px] group-hover/fb:-translate-y-[3px] group-focus-visible/fb:translate-x-[3px] group-focus-visible/fb:-translate-y-[3px] motion-reduce:transition-none motion-reduce:transform-none"
+    >
+      ↗
+    </span>
+  </a>
+</li>
             </ul>
           </nav>
         </div>
